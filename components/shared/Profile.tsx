@@ -17,7 +17,7 @@ import {
   UserIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline'
-import { truncateText } from '@/utils'
+import { getPoints, truncateText } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -76,7 +76,17 @@ const Profile = () => {
     setAnchorEl(null)
   }
 
-  console.log('session: ', session)
+  // user points
+  const [points, setPoints] = React.useState<number>()
+  React.useEffect(() => {
+    if (status === 'loading') return
+    const getPts = async () => {
+      const pts = await getPoints(session?.user?.email as string)
+      setPoints(pts)
+    }
+    getPts()
+  }, [session])
+
   if (status === 'loading') return null
   return (
     <div>
@@ -123,9 +133,7 @@ const Profile = () => {
             <Link href='/dashboard' className='flex items-center'>
               <BanknotesIcon className='w-6 h-5 ml-3' />
               <p className='text-sm'>نقاطي:</p>
-              <p className='text-sm text-green-500 font-semibold'>
-                {session?.user?.points}
-              </p>
+              <p className='text-sm text-green-500 mr-4'>{points}</p>
             </Link>
           </MenuItem>
 
