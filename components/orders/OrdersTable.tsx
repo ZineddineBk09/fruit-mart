@@ -23,7 +23,6 @@ const OrdersTable = () => {
     refresh();
   }, []);
 
-  console.log("orders: ", orders);
 
   return (
     <>
