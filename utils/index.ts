@@ -260,7 +260,6 @@ export const addDocument = async (
 
     return docRef.id
   } catch (error) {
-    console.log('add document error: ', error)
     toast.error('حدث خطأ ما، يرجى المحاولة مرة أخرى')
   }
 }
@@ -406,7 +405,6 @@ export const searchUsersByEmail = async (email: string) => {
 
 export const getUserIdAndRole = async (email: string) => {
   const coll = collection(firestore, 'users')
-  console.log('email: ', email)
   // query is if email is equal to the email we are searching for contains the email we are searching for
   const q = query(coll, where('email', '==', email))
 

@@ -40,8 +40,6 @@ export const authOptions: NextAuthOptions = {
           } else {
             // check if password is correct
             const user = doc.docs[0].data()
-            console.log('doc.docs[0].data(): ', doc.docs[0].data())
-            console.log('doc.docs[0].id: ', doc.docs[0].id)
             const isPasswordCorrect = await comparePass(password, user.password)
             if (isPasswordCorrect) {
               return {
@@ -55,7 +53,6 @@ export const authOptions: NextAuthOptions = {
             }
           }
         })
-        console.log('querySnapshot:', querySnapshot)
         return querySnapshot
       },
     }),
@@ -108,10 +105,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     session: async ({ session, token }) => {
-      console.log('session: ', session)
-      console.log('token: ', token)
       const user = await getUserIdAndRole(session?.user?.email as string)
-      console.log('getUserIdAndRole user: ', user)
       return {
         ...session,
         user: {
@@ -123,8 +117,6 @@ export const authOptions: NextAuthOptions = {
       }
     },
     jwt: ({ token, user }) => {
-      console.log('user: ', user)
-      console.log('token: ', token)
       if (user) {
         const u = user as unknown as any
         return {
@@ -152,7 +144,6 @@ export const checkUserIsAdmin = async () => {
   const session = await getServerSession()
   if (!session || session.user.role !== 'admin') {
     console.log('You are not authorized to view this page')
-    console.log('session: ', session)
     return redirect('/login')
   }
 }

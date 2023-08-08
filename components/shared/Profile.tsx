@@ -75,7 +75,6 @@ const Profile = () => {
     setAnchorEl(null);
   };
 
-  console.log("session: ", session);
 
   if (status === "loading") return null;
   return (
