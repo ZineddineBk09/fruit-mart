@@ -47,6 +47,7 @@ export const authOptions: NextAuthOptions = {
                 name: user.username,
                 email: user.email,
                 role: user.role,
+                points: user.points || 0,
               }
             } else {
               return null
@@ -113,6 +114,7 @@ export const authOptions: NextAuthOptions = {
           name: user.username,
           role: user.role,
           email: user.email,
+          points: user.points || 0,
         },
       }
     },
