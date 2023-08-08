@@ -1,14 +1,12 @@
-import OrdersTable from "@/components/orders/OrdersTable";
-import React from "react";
+import OrdersTable from '@/components/orders/OrdersTable'
+import React from 'react'
 
 function OrdersPage() {
- 
-
   return (
     <>
-      <OrdersTable/>
+      <OrdersTable />
     </>
-  );
+  )
 }
 
-export default OrdersPage;
+export default OrdersPage
