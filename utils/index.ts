@@ -421,7 +421,7 @@ export const getUserIdAndRole = async (email: string) => {
 }
 
 // Write a function that changes the points of each user by +-points
-export const increasePoints = async (email: string, points: number) => {
+export const changePoints = async (email: string, points: number) => {
   const coll = collection(firestore, 'users')
   const q = query(coll, where('email', '==', email))
   const querySnapshot: any = await getDocs(q)
