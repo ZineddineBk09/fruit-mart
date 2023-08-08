@@ -420,21 +420,15 @@ export const getUserIdAndRole = async (email: string) => {
   return users[0]
 }
 
-// Write a function that increase the points of each user by 3
-export const increasePoints = async () => {
+// Write a function that changes the points of each user by +-points
+export const increasePoints = async (email: string, points: number) => {
   const coll = collection(firestore, 'users')
-  const q = query(coll)
+  const q = query(coll, where('email', '==', email))
   const querySnapshot: any = await getDocs(q)
-  const users = querySnapshot.docs.map((doc: any) => {
-    return {
-      ...doc.data(),
-      id: doc.id,
-    }
-  })
-  users.forEach(async (user) => {
-    const userDocRef = doc(collection(firestore, 'users'), user.id)
-    await updateDoc(userDocRef, {
-      points: user.points + 3,
-    })
+  const user = querySnapshot.docs[0].data()
+  const userDocRef = doc(collection(firestore, 'users'), user.id)
+  await updateDoc(userDocRef, {
+    points: user.points + points,
   })
 }
+
