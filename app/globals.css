@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+body {
+}
+
+*{
+    box-sizing: border-box;
+}
