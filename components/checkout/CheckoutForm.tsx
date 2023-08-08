@@ -1,3 +1,4 @@
+'use client'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useRouter } from 'next/navigation'
@@ -59,10 +60,15 @@ const CheckOutForm = () => {
           await changePoints(
             session?.user?.email as string,
             total.toFixed(0) * 3
-          ).then(() => {
-            router.push('/')
-            dispatch(clearCart())
-          })
+          )
+            .then((pts: number) => {
+              console.log('pts: ', pts)
+              router.push('/')
+              dispatch(clearCart())
+            })
+            .catch((err) => {
+              console.log(err)
+            })
         })
       } catch (error) {
         toast.error('حدث خطأ ما، يرجى ملء طلبك مرة أخرى')

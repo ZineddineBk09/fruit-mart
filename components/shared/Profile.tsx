@@ -85,7 +85,7 @@ const Profile = () => {
       setPoints(pts)
     }
     getPts()
-  }, [session])
+  }, [])
 
   if (status === 'loading') return null
   return (
@@ -129,12 +129,10 @@ const Profile = () => {
 
           <Divider sx={{ my: 0.5 }} />
 
-          <MenuItem disableRipple>
-            <Link href='/dashboard' className='flex items-center'>
-              <BanknotesIcon className='w-6 h-5 ml-3' />
-              <p className='text-sm'>نقاطي:</p>
-              <p className='text-sm text-green-500 mr-4'>{points}</p>
-            </Link>
+          <MenuItem disableRipple className='flex items-center'>
+            <BanknotesIcon className='w-6 h-5 ml-3' />
+            <p className='text-sm'>نقاطي:</p>
+            <p className='text-sm text-green-500 mr-4'>{points}</p>
           </MenuItem>
 
           <Divider sx={{ my: 0.5 }} />
