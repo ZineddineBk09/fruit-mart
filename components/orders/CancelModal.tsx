@@ -43,6 +43,9 @@ export default function CancelModal({ id, refresh }: Props) {
       order_status: "ملغي",
     })
       .then(() => {
+        // reduce the points of the user
+        // --get the user email
+        
         // refresh the orders list
         refresh();
         // close the modal
@@ -56,9 +59,9 @@ export default function CancelModal({ id, refresh }: Props) {
 
   return (
     <div>
-      <Tooltip title="حذف">
+      <Tooltip title='الغاء'>
         <button
-          className="text-red-500 p-2 rounded transition-all duration-300 hover:bg-gray-200"
+          className='text-red-500 p-2 rounded transition-all duration-300 hover:bg-gray-200'
           onClick={handleClickOpen}
         >
           الغاء الطلب
@@ -73,32 +76,32 @@ export default function CancelModal({ id, refresh }: Props) {
         // make a dark background with rounded corners
         PaperProps={{
           style: {
-            backgroundColor: "#ffffff",
-            borderRadius: "10px",
-            width: "300px",
+            backgroundColor: '#ffffff',
+            borderRadius: '10px',
+            width: '300px',
           },
         }}
       >
         <DialogContent>
-          <DialogContentText className="text-slate-800">
+          <DialogContentText className='text-slate-800'>
             هل تريد حذف هذا السجل؟
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={handleCancelOrder}
-            className="!text-slate-800 hover:!bg-green-500 hover:!bg-opacity-20"
+            className='!text-slate-800 hover:!bg-green-500 hover:!bg-opacity-20'
           >
             نعم
           </Button>
           <Button
             onClick={handleClose}
-            className="!text-slate-800 hover:!bg-red-900 hover:!bg-opacity-20"
+            className='!text-slate-800 hover:!bg-red-900 hover:!bg-opacity-20'
           >
             لا
           </Button>
         </DialogActions>
       </Dialog>
     </div>
-  );
+  )
 }
