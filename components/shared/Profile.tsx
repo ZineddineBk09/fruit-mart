@@ -153,12 +153,14 @@ const Profile = () => {
               <p className="text-sm">المحفظة</p>
             </Link>
           </MenuItem> */}
-          <MenuItem disableRipple>
-            <Link href='/orders' className='flex items-center'>
-              <ArchiveBoxIcon className='w-6 h-5 ml-3' />
-              <p className='text-sm'>طلباتي</p>
-            </Link>
-          </MenuItem>
+          {session?.user && (
+            <MenuItem disableRipple>
+              <Link href='/orders' className='flex items-center'>
+                <ArchiveBoxIcon className='w-6 h-5 ml-3' />
+                <p className='text-sm'>طلباتي</p>
+              </Link>
+            </MenuItem>
+          )}
 
           <Divider sx={{ my: 0.5 }} />
           <MenuItem
