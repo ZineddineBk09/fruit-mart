@@ -28,14 +28,14 @@ const NavigationBar = () => {
             <Link
               href='/login'
               prefetch
-              className='text-xs text-gray-700 hover:text-gray-900 transition-all duration-200 md:text-sm'
+              className='w-28 text-center text-xs text-gray-700 hover:text-gray-900 transition-all duration-200 md:text-sm'
             >
               تسجيل الدخول
             </Link>
             <Link
               href='/register'
               prefetch
-              className='text-xs text-white font-semibold mr-2 bg-green-500 rounded-lg p-2 hover:bg-green-600 transition-all duration-200 md:text-sm'
+              className='w-28 text-center text-xs text-white font-semibold mr-2 bg-green-500 rounded-lg p-2 hover:bg-green-600 transition-all duration-200 md:text-sm'
             >
               إنشاء حساب
             </Link>

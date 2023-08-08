@@ -126,12 +126,12 @@ const Profile = () => {
               </Link>
             </MenuItem>
           )}
-          <MenuItem disableRipple>
+          {/* <MenuItem disableRipple>
             <Link href="/wallet" className="flex items-center">
               <WalletIcon className="w-6 h-5 ml-3" />
               <p className="text-sm">المحفظة</p>
             </Link>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem disableRipple>
             <Link href="/orders" className="flex items-center">
               <ArchiveBoxIcon className="w-6 h-5 ml-3" />
