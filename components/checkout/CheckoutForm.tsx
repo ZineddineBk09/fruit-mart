@@ -41,7 +41,7 @@ const CheckOutForm = () => {
 
     onSubmit: async (values) => {
       try {
-        addDocument(
+        await addDocument(
           'orders',
           {
             ...values,
@@ -51,18 +51,19 @@ const CheckOutForm = () => {
             order_status: 'قيد الانتظار',
             date: new Date(),
           },
-          async () => {
-            // change the points of the user
-            await changePoints(
-              session?.user?.email as string,
-              (total.toFixed(0) * 3) as number
-            )
-
+          () => {
             toast.success('تم ارسال الطلب بنجاح')
-            dispatch(clearCart())
-            router.push('/')
           }
-        )
+        ).then(async (id) => {
+          // update the points of the user
+          await changePoints(
+            session?.user?.email as string,
+            total.toFixed(0) * 3
+          ).then(() => {
+            router.push('/')
+            dispatch(clearCart())
+          })
+        })
       } catch (error) {
         toast.error('حدث خطأ ما، يرجى ملء طلبك مرة أخرى')
       }
