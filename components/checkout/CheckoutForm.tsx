@@ -42,20 +42,21 @@ const CheckOutForm = () => {
     onSubmit: async (values) => {
       try {
         addDocument(
-          "orders",
+          'orders',
           {
             ...values,
             order_items: items,
             total_price: total,
             order_date: new Date(),
-            order_status: "قيد الانتظار",
+            order_status: 'قيد الانتظار',
+            date: new Date(),
           },
           () => {
-            toast.success("تم ارسال الطلب بنجاح");
-            dispatch(clearCart());
-            router.push("/");
+            toast.success('تم ارسال الطلب بنجاح')
+            dispatch(clearCart())
+            router.push('/')
           }
-        );
+        )
       } catch (error) {
         toast.error("حدث خطأ ما، يرجى ملء طلبك مرة أخرى");
       }
