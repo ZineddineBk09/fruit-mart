@@ -12,6 +12,7 @@ import { signOut, useSession } from 'next-auth/react'
 import {
   ArchiveBoxIcon,
   ArrowRightOnRectangleIcon,
+  BanknotesIcon,
   ChartPieIcon,
   UserIcon,
   WalletIcon,
@@ -117,6 +118,19 @@ const Profile = () => {
           </MenuItem>
 
           <Divider sx={{ my: 0.5 }} />
+
+          <MenuItem disableRipple>
+            <Link href='/dashboard' className='flex items-center'>
+              <BanknotesIcon className='w-6 h-5 ml-3' />
+              <p className='text-sm'>نقاطي:</p>
+              <p className='text-sm text-green-500 font-semibold'>
+                {session?.user?.points}
+              </p>
+            </Link>
+          </MenuItem>
+
+          <Divider sx={{ my: 0.5 }} />
+
           {session?.user.role === 'admin' && (
             <MenuItem disableRipple>
               <Link href='/dashboard' className='flex items-center'>
