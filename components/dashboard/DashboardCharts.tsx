@@ -1,5 +1,5 @@
-"use client";
-import { Line } from "react-chartjs-2";
+'use client'
+import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,17 +10,17 @@ import {
   Tooltip,
   Legend,
   Chart,
-} from "chart.js";
-import zoomPlugin from "chartjs-plugin-zoom";
+} from 'chart.js'
+import zoomPlugin from 'chartjs-plugin-zoom'
 import {
   getMonths,
   getOrdersAddedInEachMonth,
   getProductsAddedInEachMonth,
   getUsersAddedInEachMonth,
-} from "@/utils";
-Chart.register(zoomPlugin);
+} from '@/utils'
+Chart.register(zoomPlugin)
 
-type Props = {};
+type Props = {}
 
 ChartJS.register(
   CategoryScale,
@@ -30,7 +30,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-);
+)
 
 export const options = {
   responsive: true,
@@ -43,12 +43,12 @@ export const options = {
 
   // read data from lines on hover
   tooltips: {
-    mode: "index" as const,
+    mode: 'index' as const,
     intersect: false,
   },
   // read data from lines on hover
   hover: {
-    mode: "nearest" as const,
+    mode: 'nearest' as const,
     intersect: true,
   },
 
@@ -56,19 +56,19 @@ export const options = {
   scales: {
     x: {
       ticks: {
-        color: "rgba(0, 0, 0, 1)",
+        color: 'rgba(0, 0, 0, 1)',
       },
     },
     y: {
       ticks: {
-        color: "rgba(0, 0, 0, 1)",
+        color: 'rgba(0, 0, 0, 1)',
       },
     },
   },
 
   plugins: {
     legend: {
-      position: "top" as const,
+      position: 'top' as const,
     },
     // zoom
     zoom: {
@@ -82,19 +82,19 @@ export const options = {
         drag: {
           enabled: true,
         },
-        mode: "x",
+        mode: 'x',
       },
     },
   },
-};
+}
 
 export default async function DashboardCharts({}: Props) {
-  const months = getMonths();
+  const months = getMonths()
 
-  const products = await getProductsAddedInEachMonth();
-  const orders = await getOrdersAddedInEachMonth();
-  const users = await getUsersAddedInEachMonth();
-
+  const filledOrders = await getOrdersAddedInEachMonth('تم التسليم')
+  const pendingOrders = await getOrdersAddedInEachMonth('قيد الانتظار')
+  const canceledOrders = await getOrdersAddedInEachMonth('ملغي')
+  const users = await getUsersAddedInEachMonth()
 
   const data = {
     labels: months,
@@ -103,31 +103,38 @@ export default async function DashboardCharts({}: Props) {
     datasets: [
       // orders: green
       {
-        label: "الطلبات",
-        data: orders,
-        borderColor: "rgb(3, 255, 59)",
-        backgroundColor: "rgba(3, 255, 59, 0.5)",
+        label: 'الطلبات المكتملة',
+        data: filledOrders,
+        borderColor: 'rgb(3, 255, 59)',
+        backgroundColor: 'rgba(3, 255, 59, 0.5)',
       },
-      // products: red
+      // canceled orders: red
       {
-        label: "المنتجات",
-        data: products,
-        borderColor: "rgb(255, 10, 10)",
-        backgroundColor: "rgba(255, 10, 10, 0.5)",
+        label: 'الطلبات الملغاة',
+        data: canceledOrders,
+        borderColor: 'rgb(255, 10, 10)',
+        backgroundColor: 'rgba(255, 10, 10, 0.5)',
       },
-      // users: yellow
+      // pending orders: yellow
       {
-        label: "المستخدمين",
+        label: 'الطلبات قيد الانتظار',
+        data: pendingOrders,
+        borderColor: 'rgb(255, 255, 0)',
+        backgroundColor: 'rgba(255, 255, 0, 0.5)',
+      },
+      // users: blue
+      {
+        label: 'المستخدمين',
         data: users,
-        borderColor: "rgb(255, 255, 0)",
-        backgroundColor: "rgba(255, 255, 0, 0.5)",
+        borderColor: 'rgb(0, 0, 255)',
+        backgroundColor: 'rgba(0, 0, 255, 0.5)',
       },
     ],
-  };
+  }
 
   return (
-    <div className="h-[100%] w-full  mt-10  bg-light-dark-2 rounded-md p-3">
+    <div className='h-[100%] w-full  mt-10  bg-light-dark-2 rounded-md p-3'>
       <Line options={options as any} data={data} />
     </div>
-  );
+  )
 }

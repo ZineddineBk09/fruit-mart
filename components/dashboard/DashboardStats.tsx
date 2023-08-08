@@ -1,34 +1,37 @@
-"use client";
+'use client'
 import {
   countFirestoreOrders,
   countFirestoreProducts,
   countFirestoreUsers,
-} from "@/utils";
-import dynamic from "next/dynamic";
-const DashboardStatsCard = dynamic(() => import("./DashboardStatsCard"), {
+} from '@/utils'
+import dynamic from 'next/dynamic'
+const DashboardStatsCard = dynamic(() => import('./DashboardStatsCard'), {
   ssr: false,
-});
+})
 
 const DashboardStats = async () => {
   const stats = [
     {
-      title: "المنتجات",
-      value: await countFirestoreProducts(),
+      title: 'الطلبات الملغاة',
+      value: await countFirestoreOrders('ملغي'),
     },
     {
-      title: "الطلبات",
-      value: await countFirestoreOrders(),
+      title: 'الطلبات المكتملة',
+      value: await countFirestoreOrders('تم التسليم'),
     },
     {
-      //users
-      title: "المستخدمين",
+      title: 'الطلبات قيد الانتظار',
+      value: await countFirestoreOrders('قيد الانتظار'),
+    },
+    {
+      title: 'المستخدمين',
       value: await countFirestoreUsers(),
     },
-  ];
+  ]
 
   // get the number of products and orders from firestore
   return (
-    <section className="grid grid-cols-1 gap-4 w-full mx-auto sm:grid-cols-3">
+    <section className='grid grid-cols-1 gap-4 w-full mx-auto sm:grid-cols-2'>
       {stats &&
         stats.map((stat, index) => (
           <DashboardStatsCard
@@ -36,16 +39,16 @@ const DashboardStats = async () => {
             title={stat.title}
             value={stat.value}
             href={
-              stat.title === "المنتجات"
-                ? "/products"
-                : stat.title === "الطلبات"
-                ? "/orders"
-                : "#"
+              stat.title === 'المنتجات'
+                ? '/products'
+                : stat.title === 'الطلبات'
+                ? '/orders'
+                : '#'
             }
           />
         ))}
     </section>
-  );
-};
+  )
+}
 
-export default DashboardStats;
+export default DashboardStats

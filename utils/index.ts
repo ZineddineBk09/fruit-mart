@@ -58,9 +58,11 @@ export const countFirestoreProducts = async () => {
   return querySnapshot.size
 }
 
-export const countFirestoreOrders = async () => {
+export const countFirestoreOrders = async (
+  status: 'قيد الانتظار' | 'ملغي' | 'تم التسليم'
+) => {
   const coll = collection(firestore, 'orders')
-  const q = query(coll)
+  const q = query(coll, where('order_status', '==', status))
   const querySnapshot: any = await getDocs(q)
   return querySnapshot.size
 }
@@ -321,10 +323,12 @@ export const getProductsAddedInEachMonth = async () => {
 }
 
 // get number of orders added each month
-export const getOrdersAddedInEachMonth = async () => {
+export const getOrdersAddedInEachMonth = async (
+  status: 'قيد الانتظار' | 'ملغي' | 'تم التسليم'
+) => {
   const months = getMonths()
   const coll = collection(firestore, 'orders')
-  const q = query(coll)
+  const q = query(coll, where('order_status', '==', status))
   const querySnapshot: any = await getDocs(q)
   const orders = querySnapshot.docs.map((doc: any) => {
     return {
